@@ -3,7 +3,7 @@ class Picker:
         self.__config = config
         self.__checks = checks
 
-    def get(self):
+    def filter(self):
         checks = self.__checks['checks']
         if self.__config.is_strategy_include():
             checks = self.__include(checks)

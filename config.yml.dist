@@ -3,3 +3,12 @@ pingdom_access:
     password: dummy
     account_email: dummy
     app_key: dummy
+
+# the checks that you want to export data
+checks:
+    # 3 strategies supported
+    # all: all checks
+    # include: will only include the ids specified
+    # exclude: all checks except the ids specificied
+    strategy: all
+    ids: []

@@ -5,17 +5,22 @@ import sys
 from pingdomexport import configuration
 from pingdomexport import pingdom
 from pingdomexport import checks
+from pingdomexport.load import load_checks
 
 class Export:
-    def __init__(self):
+    def __init__(self, export_type):
         try:
-            self.__config = configuration.Configuration()
+            config = configuration.Configuration()
         except yaml.YAMLError as exc:
             sys.exit("Unable to read configuration: " + str(exc))
         except FileNotFoundError as exc:
             sys.exit(exc)
 
-        self.__pingdom = pingdom.Pingdom(self.__config.pingdom_access())
+        self.__pingdom = pingdom.Pingdom(config.pingdom_access())
+        self.__config = config
+        self.__export_type = export_type
 
-    def getChecks(self):
-        return checks.Picker(self.__config.checks(), self.__pingdom.checks()).get()
+    def run(self):
+        filtered_checks = checks.Picker(self.__config.checks(), self.__pingdom.checks()).filter()
+        if self.__export_type == 'all' or self.__export_type == 'checks':
+            load_checks.load(self.__config, filtered_checks)
