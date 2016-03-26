@@ -1,5 +1,5 @@
-from pingdomexport.load import output_checks
+from pingdomexport.load import checks_output
 
 def load(config, checks):
     # @todo use the config to understand what should be called
-    output_checks.Output().process(checks)
+    checks_output.load(checks)

@@ -5,7 +5,7 @@ import sys
 from pingdomexport import configuration
 from pingdomexport import pingdom
 from pingdomexport import checks
-from pingdomexport.load import load_checks
+from pingdomexport.load import checks_load
 
 class Export:
     def __init__(self, export_type = 'all', config_path = None):
@@ -23,4 +23,4 @@ class Export:
     def run(self):
         filtered_checks = checks.Picker(self.__config.checks(), self.__pingdom.checks()).filter()
         if self.__export_type == 'all' or self.__export_type == 'checks':
-            load_checks.load(self.__config, filtered_checks)
+            checks_load.load(self.__config, filtered_checks)
