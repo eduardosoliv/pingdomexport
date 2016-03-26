@@ -7,16 +7,19 @@ from pingdomexport import export
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--type",
-    type=str,
     help="Export type if only the check list or the results, options: checks|results|all"
+)
+parser.add_argument(
+    "--config",
+    help="The path to the configuration, if not provided will search config.yml"
 )
 args = parser.parse_args()
 
 export_type = 'all'
 if args.type:
-    if args.type in ['checks', 'results', 'all']:
-        export_type = args.type
-    else:
-        print("Invalid export type must be checks|results|all")
+    if args.type not in ['checks', 'results', 'all']:
+        print("Invalid export type, must be: checks|results|all")
+        sys.exit()
+    export_type = args.type
 
-export.Export(export_type).run()
+export.Export(export_type, args.config).run()

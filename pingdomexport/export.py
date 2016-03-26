@@ -8,9 +8,9 @@ from pingdomexport import checks
 from pingdomexport.load import load_checks
 
 class Export:
-    def __init__(self, export_type):
+    def __init__(self, export_type = 'all', config_path = None):
         try:
-            config = configuration.Configuration()
+            config = configuration.Configuration(config_path)
         except yaml.YAMLError as exc:
             sys.exit("Unable to read configuration: " + str(exc))
         except FileNotFoundError as exc:
