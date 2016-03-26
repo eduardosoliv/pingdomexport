@@ -63,3 +63,9 @@ target/
 
 # Config file
 config.yml
+
+# Mac files
+.DS_Store
+
+# Others
+temp
