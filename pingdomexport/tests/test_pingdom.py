@@ -2,7 +2,6 @@ import pytest
 import requests
 import requests_mock
 import base64
-import sys
 from pingdomexport import configuration, pingdom
 
 class TestPingdom:
