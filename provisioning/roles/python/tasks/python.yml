@@ -1,0 +1,3 @@
+- name: Install python 3.4
+  yum: name=python34
+  become: yes

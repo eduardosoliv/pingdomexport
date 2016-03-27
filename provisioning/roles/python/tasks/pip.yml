@@ -1,0 +1,8 @@
+- name: Install setup tools for python 3.4
+  yum: name=python34-setuptools
+  become: yes
+
+- name: Install pip for python 3.4
+  #easy_instal: name=pip executable=3.4 state=latest
+  command: easy_install-3.4 pip
+  become: yes

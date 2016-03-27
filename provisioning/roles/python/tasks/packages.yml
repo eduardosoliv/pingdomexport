@@ -1,0 +1,11 @@
+- name: Install python packages
+  command: pip3 install {{ item }}
+  become: yes
+  with_items:
+    - requests
+    - tablib
+    - pyyaml
+    # only for tests
+    - pytest
+    - pytest-cov
+    - requests_mock

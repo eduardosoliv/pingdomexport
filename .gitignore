@@ -64,6 +64,7 @@ target/
 # Vagrant
 Vagrantparams.yml
 .vagrant/
+*.retry
 
 # Config file
 config.yml

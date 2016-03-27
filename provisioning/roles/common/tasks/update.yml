@@ -1,0 +1,3 @@
+- name: Update all packages
+  yum: name=* disable_gpg_check=yes state=latest
+  become: yes
