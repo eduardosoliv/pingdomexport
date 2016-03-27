@@ -1,5 +1,13 @@
 import pytest
+from unittest.mock import patch
 from pingdomexport import configuration
+
+class TestConfiguration:
+    def test_config_not_found(self):
+        with patch('os.path.isfile') as isfile:
+            with pytest.raises(FileNotFoundError):
+                isfile.return_value = False
+                configuration.Configuration('config.yml.dist')
 
 class TestPingdomAccess:
     def test_from_dict(self):
