@@ -1,18 +1,11 @@
-import requests
-import json
-import yaml
-import sys
 from pingdomexport import configuration, pingdom, checks
 from pingdomexport.load import checks_load, checks_results_load
 
 class Export:
     def __init__(self, export_type = 'all', config_path = None):
-        try:
-            config = configuration.Configuration(config_path)
-        except yaml.YAMLError as exc:
-            sys.exit("Unable to read configuration: " + str(exc))
-        except FileNotFoundError as exc:
-            sys.exit(exc)
+        if export_type not in ['checks', 'results', 'all']:
+            raise ValueError('Invalid export type, must be: checks|results|all')
+        config = configuration.Configuration(config_path)
 
         self.__pingdom = pingdom.Pingdom(config.pingdom_access())
         self.__config = config
