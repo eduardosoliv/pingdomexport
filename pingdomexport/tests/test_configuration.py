@@ -9,6 +9,14 @@ class TestConfiguration:
                 isfile.return_value = False
                 configuration.Configuration('config.yml.dist')
 
+    def test_config_default(self):
+        with patch('os.path.dirname') as dirname, patch('os.path.isfile') as isfile:
+            with pytest.raises(FileNotFoundError) as exc:
+                dirname.return_value = "pathtest"
+                isfile.return_value = False
+                configuration.Configuration()
+            assert "pathtest/../config.yml" in str(exc)
+
 class TestPingdomAccess:
     def test_from_dict(self):
         config = configuration.PingdomAccess.from_dict(
