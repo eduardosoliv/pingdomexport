@@ -65,7 +65,7 @@ class TestLoad:
                     "created": 1458372620
                 }
             ],
-            1458372620 + 3600 * 2
+            c_to=1458372620 + 3600 * 2
         )
 
         assert 4 == mock.check_results.call_count
@@ -103,7 +103,7 @@ class TestLoad:
                 "id": 2057736,
                 "created": 1458372620
             },
-            1458372620 + 100
+            c_to=1458372620 + 100
         )
 
         mock.check_results.assert_called_with(2057736, 1458372620, 1458372720)
@@ -111,6 +111,36 @@ class TestLoad:
         assert len(out) == 2
         assert '1458376174,50,up,OK,OK,582\r\n1458376114,34,up,OK,OK,1420\r\n' == out[0]
         assert '' == out[1]
+
+    def test_load_results_with_from(self, capsys):
+        created = 1458372620
+        mock = Mock()
+        mock.check_results = MagicMock(return_value={"results": []})
+        checks_results_load.Load("config", mock).results(
+            {
+                "id": 2057736,
+                "created": created
+            },
+            created + 100,
+            created + 1000
+        )
+
+        mock.check_results.assert_called_with(2057736, created + 100, created + 1000)
+
+    def test_load_results_with_from_less_than_created(self, capsys):
+        created = 1458372620
+        mock = Mock()
+        mock.check_results = MagicMock(return_value={"results": []})
+        checks_results_load.Load("config", mock).results(
+            {
+                "id": 2057736,
+                "created": created
+            },
+            created - 100,
+            created + 1000
+        )
+
+        mock.check_results.assert_called_with(2057736, created, created + 1000)
 
     def test_load_results_multi(self, capsys):
         mock = Mock()
@@ -153,7 +183,7 @@ class TestLoad:
                 "id": 2057736,
                 "created": 1458372620
             },
-            1458372620 + 3600 * 2
+            c_to=1458372620 + 3600 * 2
         )
 
         assert 2 == mock.check_results.call_count
