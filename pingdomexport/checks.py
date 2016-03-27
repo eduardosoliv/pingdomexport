@@ -14,13 +14,13 @@ class Picker:
     def __include(self, checks):
         filtered_checks = []
         for check in checks:
-            if (check['id'] in self.__config.ids()):
+            if check['id'] in self.__config.ids():
                 filtered_checks.append(check)
         return filtered_checks
 
     def __exclude(self, checks):
         filtered_checks = []
         for check in checks:
-            if (check['id'] not in self.__config.ids()):
+            if check['id'] not in self.__config.ids():
                 filtered_checks.append(check)
         return filtered_checks

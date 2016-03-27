@@ -1,9 +1,8 @@
-import sys
 from pingdomexport.load import check_results_output
 
 class TestOutput:
     def test_pre_load(self, capsys):
-        check_results_output.Output().preLoad()
+        check_results_output.Output().pre_load()
 
         out = capsys.readouterr()
         assert len(out) == 2

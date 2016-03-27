@@ -2,7 +2,7 @@ from pingdomexport import configuration, pingdom, checks
 from pingdomexport.load import checks_load, checks_results_load
 
 class Export:
-    def __init__(self, export_type = 'all', config_path = None, checks_from = None, checks_to = None):
+    def __init__(self, export_type='all', config_path=None, checks_from=None, checks_to=None):
         if export_type not in ['checks', 'results', 'all']:
             raise ValueError('Invalid export type, must be: checks|results|all')
         config = configuration.Configuration(config_path)

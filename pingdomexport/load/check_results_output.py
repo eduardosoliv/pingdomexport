@@ -1,9 +1,9 @@
 import tablib
 
 class Output:
-    def preLoad(self):
+    def pre_load(self):
         data = tablib.Dataset(
-            headers = [
+            headers=[
                 'Check ID',
                 'Time',
                 'Probe ID',

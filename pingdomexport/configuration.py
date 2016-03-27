@@ -1,24 +1,16 @@
-import yaml
 import os.path
-from typing import Dict
-from typing import List
+import yaml
 
 class PingdomAccess:
-    def __init__(
-        self,
-        username: str,
-        password: str,
-        account_email: str,
-        app_key: str
-    ):
+    def __init__(self, username, password, account_email, app_key):
         self.__username = username
         self.__password = password
         self.__account_email = account_email
         self.__app_key = app_key
 
     @classmethod
-    def from_dict(config, data: Dict[str, int]):
-        return config(
+    def from_dict(cls, data):
+        return cls(
             data['username'],
             data['password'],
             data['account_email'],
@@ -35,7 +27,7 @@ class PingdomAccess:
         return self.__app_key
 
 class Checks:
-    def __init__(self, strategy: str, ids: List[int]):
+    def __init__(self, strategy, ids):
         if strategy not in ['all', 'include', 'exclude']:
             raise ValueError("Checks configuration strategy must be all/include/exclude")
         if strategy == 'all' and len(ids) != 0:
@@ -44,8 +36,8 @@ class Checks:
         self.__ids = ids
 
     @classmethod
-    def from_dict(config, data: Dict[str, int]):
-        return config(
+    def from_dict(cls, data):
+        return cls(
             data['strategy'],
             data['ids']
         )
@@ -62,9 +54,9 @@ class Checks:
         return self.__ids
 
 class Configuration:
-    def __init__(self, config_path = None):
-        if (config_path is None):
-            config_path =  os.path.dirname(os.path.realpath(__file__)) + '/../config.yml'
+    def __init__(self, config_path=None):
+        if config_path is None:
+            config_path = os.path.dirname(os.path.realpath(__file__)) + '/../config.yml'
 
         if not os.path.isfile(config_path):
             raise FileNotFoundError("Config " + config_path + " not found")

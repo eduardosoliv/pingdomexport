@@ -1,5 +1,5 @@
-from pingdomexport.load import checks_results_load
 from unittest.mock import MagicMock, Mock
+from pingdomexport.load import checks_results_load
 
 class TestLoad:
     def test_load(self, capsys):
@@ -127,7 +127,7 @@ class TestLoad:
 
         mock.check_results.assert_called_with(2057736, created + 100, created + 1000)
 
-    def test_load_results_with_from_less_than_created(self, capsys):
+    def test_load_results_invalid_from(self):
         created = 1458372620
         mock = Mock()
         mock.check_results = MagicMock(return_value={"results": []})

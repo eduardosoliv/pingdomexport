@@ -1,5 +1,3 @@
-import pytest
-import sys
 from pingdomexport import checks
 from pingdomexport import configuration
 
