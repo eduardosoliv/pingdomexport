@@ -17,6 +17,7 @@ class Output:
     def load(self, results):
         data = tablib.Dataset()
         for result in results:
+            responsetime = result.get('responsetime', 'n/a')
             data.append(
                 [
                     result['time'],
@@ -24,7 +25,7 @@ class Output:
                     result['status'],
                     result['statusdesc'],
                     result['statusdesclong'],
-                    result['responsetime']
+                    responsetime
                 ]
             )
         print(data.csv, end="")

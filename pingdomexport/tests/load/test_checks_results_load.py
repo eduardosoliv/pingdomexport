@@ -5,48 +5,56 @@ class TestLoad:
     def test_load(self, capsys):
         mock = Mock()
         mock.check_results.side_effect = [
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 582,
-                    'probeid': 50,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376174
-                }
-            ],
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 1420,
-                    'probeid': 34,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376114
-                }
-            ],
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 682,
-                    'probeid': 51,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376184
-                }
-            ],
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 682,
-                    'probeid': 51,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376184
-                }
-            ]
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376174
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376175
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376176
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376177
+                    }
+                ]
+            }
         ]
-        checks_results_load.Load(mock).load(
+        checks_results_load.Load("config", mock).load(
             [
                 {
                     "id": 2057736,
@@ -61,34 +69,36 @@ class TestLoad:
         )
 
         assert 4 == mock.check_results.call_count
-        #out = capsys.readouterr()
-        #assert len(out) == 2
-        #assert '1458376174,50,up,OK,OK,582\r\n1458376184,51,up,OK,OK,682\r\n1458376114,34,up,OK,OK,1420\r\n' == out[0]
-        #assert '' == out[1]
+        out = capsys.readouterr()
+        assert len(out) == 2
+        assert 'Time,Probe ID,Status,Status description,Status long description,Response time\r\n1458376174,50,up,OK,OK,582\r\n1458376175,50,up,OK,OK,582\r\n1458376176,50,up,OK,OK,582\r\n1458376177,50,up,OK,OK,582\r\n' == out[0]
+        assert '' == out[1]
 
     def test_load_results(self, capsys):
         mock = Mock()
         mock.check_results = MagicMock(
-            return_value=[
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 582,
-                    'probeid': 50,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376174
-                },
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 1420,
-                    'probeid': 34,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376114
-                }
-            ]
+            return_value={
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376174
+                    },
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 1420,
+                        'probeid': 34,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376114
+                    }
+                ]
+            }
         )
-        checks_results_load.Load(mock).results(
+        checks_results_load.Load("config", mock).results(
             {
                 "id": 2057736,
                 "created": 1458372620
@@ -105,36 +115,40 @@ class TestLoad:
     def test_load_results_multi(self, capsys):
         mock = Mock()
         mock.check_results.side_effect = [
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 582,
-                    'probeid': 50,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376174
-                },
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 682,
-                    'probeid': 51,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376184
-                }
-            ],
-            [
-                {
-                    'statusdesclong': 'OK',
-                    'responsetime': 1420,
-                    'probeid': 34,
-                    'status': 'up',
-                    'statusdesc': 'OK',
-                    'time': 1458376114
-                }
-            ]
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376174
+                    },
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 682,
+                        'probeid': 51,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376184
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 1420,
+                        'probeid': 34,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376114
+                    }
+                ]
+            }
         ]
-        checks_results_load.Load(mock).results(
+        checks_results_load.Load("config", mock).results(
             {
                 "id": 2057736,
                 "created": 1458372620

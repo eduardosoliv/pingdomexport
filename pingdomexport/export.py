@@ -2,10 +2,8 @@ import requests
 import json
 import yaml
 import sys
-from pingdomexport import configuration
-from pingdomexport import pingdom
-from pingdomexport import checks
-from pingdomexport.load import checks_load
+from pingdomexport import configuration, pingdom, checks
+from pingdomexport.load import checks_load, checks_results_load
 
 class Export:
     def __init__(self, export_type = 'all', config_path = None):
@@ -22,5 +20,7 @@ class Export:
 
     def run(self):
         filtered_checks = checks.Picker(self.__config.checks(), self.__pingdom.checks()).filter()
-        if self.__export_type == 'all' or self.__export_type == 'checks':
-            checks_load.load(self.__config, filtered_checks)
+        if self.__export_type in ['all', 'checks']:
+            checks_load.Load(self.__config).load(filtered_checks)
+        if self.__export_type in ['all', 'results']:
+            checks_results_load.Load(self.__config, self.__pingdom).load(filtered_checks)
