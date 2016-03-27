@@ -61,6 +61,10 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+# Vagrant
+Vagrantparams.yml
+.vagrant/
+
 # Config file
 config.yml
 
@@ -69,3 +73,4 @@ config.yml
 
 # Others
 temp
+

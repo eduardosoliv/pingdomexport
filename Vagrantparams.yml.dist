@@ -1,0 +1,5 @@
+memory: 2048  # memory to be used in the VM
+cpu: 2        # cpus to be used in the VM
+nfs: true     # only enable nfs if you are in a *nix OS and if you have nfs installed (on Mac OS X is already installed)
+ip: 10.0.25.61 # ip of the machine, require for NFS
+
