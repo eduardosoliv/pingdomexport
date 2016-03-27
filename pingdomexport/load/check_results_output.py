@@ -4,6 +4,7 @@ class Output:
     def preLoad(self):
         data = tablib.Dataset(
             headers = [
+                'Check ID',
                 'Time',
                 'Probe ID',
                 'Status',
@@ -14,12 +15,13 @@ class Output:
         )
         print(data.csv, end="")
 
-    def load(self, results):
+    def load(self, check_id, results):
         data = tablib.Dataset()
         for result in results:
             responsetime = result.get('responsetime', 'n/a')
             data.append(
                 [
+                    check_id,
                     result['time'],
                     result['probeid'],
                     result['status'],

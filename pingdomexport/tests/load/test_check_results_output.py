@@ -7,11 +7,12 @@ class TestOutput:
 
         out = capsys.readouterr()
         assert len(out) == 2
-        assert 'Time,Probe ID,Status,Status description,Status long description,Response time\r\n' == out[0]
+        assert 'Check ID,Time,Probe ID,Status,Status description,Status long description,Response time\r\n' == out[0]
         assert '' == out[1]
 
     def test_load(self, capsys):
         check_results_output.Output().load(
+            2057736,
             [
                 {
                     'statusdesclong': 'OK',
@@ -34,5 +35,5 @@ class TestOutput:
 
         out = capsys.readouterr()
         assert len(out) == 2
-        assert '1458376174,50,up,OK,OK,582\r\n1458376114,34,up,OK,OK,1420\r\n' == out[0]
+        assert '2057736,1458376174,50,up,OK,OK,582\r\n2057736,1458376114,34,up,OK,OK,1420\r\n' == out[0]
         assert '' == out[1]

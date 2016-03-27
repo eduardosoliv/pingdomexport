@@ -71,7 +71,7 @@ class TestLoad:
         assert 4 == mock.check_results.call_count
         out = capsys.readouterr()
         assert len(out) == 2
-        assert 'Time,Probe ID,Status,Status description,Status long description,Response time\r\n1458376174,50,up,OK,OK,582\r\n1458376175,50,up,OK,OK,582\r\n1458376176,50,up,OK,OK,582\r\n1458376177,50,up,OK,OK,582\r\n' == out[0]
+        assert 'Check ID,Time,Probe ID,Status,Status description,Status long description,Response time\r\n2057736,1458376174,50,up,OK,OK,582\r\n2057736,1458376175,50,up,OK,OK,582\r\n2057737,1458376176,50,up,OK,OK,582\r\n2057737,1458376177,50,up,OK,OK,582\r\n' == out[0]
         assert '' == out[1]
 
     def test_load_results(self, capsys):
@@ -109,7 +109,7 @@ class TestLoad:
         mock.check_results.assert_called_with(2057736, 1458372620, 1458372720)
         out = capsys.readouterr()
         assert len(out) == 2
-        assert '1458376174,50,up,OK,OK,582\r\n1458376114,34,up,OK,OK,1420\r\n' == out[0]
+        assert '2057736,1458376174,50,up,OK,OK,582\r\n2057736,1458376114,34,up,OK,OK,1420\r\n' == out[0]
         assert '' == out[1]
 
     def test_load_results_with_from(self, capsys):
@@ -189,5 +189,5 @@ class TestLoad:
         assert 2 == mock.check_results.call_count
         out = capsys.readouterr()
         assert len(out) == 2
-        assert '1458376174,50,up,OK,OK,582\r\n1458376184,51,up,OK,OK,682\r\n1458376114,34,up,OK,OK,1420\r\n' == out[0]
+        assert '2057736,1458376174,50,up,OK,OK,582\r\n2057736,1458376184,51,up,OK,OK,682\r\n2057736,1458376114,34,up,OK,OK,1420\r\n' == out[0]
         assert '' == out[1]

@@ -21,4 +21,4 @@ class Load:
         intervals = utils.intervals(c_from, c_to)
         for interval in intervals:
             check_results = self.__pingdom.check_results(c_id, interval[0], interval[1]);
-            self.__output.load(check_results.get('results', []))
+            self.__output.load(c_id, check_results.get('results', []))
