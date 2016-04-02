@@ -8,3 +8,18 @@ CREATE TABLE `pingdom_check` (
     `type` ENUM('http', 'https') NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `pingdom_check_result`;
+CREATE TABLE `pingdom_check_result` (
+    `id` BIGINT(8) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `check_id` INT(4) UNSIGNED NOT NULL,
+    `at` TIMESTAMP NOT NULL,
+    `probe_id` SMALLINT(2) UNSIGNED NOT NULL,
+    `status` ENUM('up', 'down', 'unconfirmed_down', 'unknown') NOT NULL,
+    `status_desc` VARCHAR(1024) NOT NULL,
+    `status_desc_long` VARCHAR(8192) NOT NULL,
+    `response_time` INT(4) UNSIGNED NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `check_resul_check_id_at` (`check_id`, `at`),
+    KEY `check_resul_at` (`at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
