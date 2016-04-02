@@ -1,0 +1,5 @@
+- name: Install utils
+  yum: name={{ item }}
+  become: yes
+  with_items:
+    - nano

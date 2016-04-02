@@ -5,6 +5,7 @@
     - requests
     - tablib
     - pyyaml
+    - records
     # only for tests
     - pytest
     - pytest-cov

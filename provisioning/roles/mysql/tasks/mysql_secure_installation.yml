@@ -1,0 +1,17 @@
+- name: Get temporary mysql root password
+  shell: grep 'temporary password' /var/log/mysqld.log | rev | awk '{print $1}' | rev
+  become: yes
+  register: mysql_root_temp_password
+
+- name: Change root password
+  command: mysql -u root -p"{{ mysql_root_temp_password.stdout }}" --connect-expired-password  -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'"
+
+- name: delete anonymous MySQL server user for {{ ansible_hostname }}
+  action: mysql_user login_user="root" login_password="{{ mysql_root_password }}" user="" host="{{ ansible_hostname }}" state="absent"
+
+
+- name: delete anonymous MySQL server user for localhost
+  action: mysql_user login_user="root" login_password="{{ mysql_root_password }}" user="" state="absent"
+
+- name: remove the MySQL test database
+  action: mysql_db login_user="root" login_password="{{ mysql_root_password }}" db=test state=absent

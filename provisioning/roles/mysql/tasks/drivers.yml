@@ -1,0 +1,3 @@
+- name: Install python mysql
+  yum: name=MySQL-python
+  become: yes

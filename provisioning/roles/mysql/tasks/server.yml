@@ -1,0 +1,10 @@
+- name: Add to yum
+  yum: name=http://repo.mysql.com/mysql57-community-release-el7.rpm state=present
+  become: yes
+
+- name: Install mysql server
+  yum: name=mysql-server disable_gpg_check=yes
+  become: yes
+
+- name: Start mysql server
+  service: name=mysqld state=started

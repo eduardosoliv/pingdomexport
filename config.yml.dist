@@ -9,6 +9,6 @@ checks:
     # 3 strategies supported
     # all: all checks
     # include: will only include the ids specified
-    # exclude: all checks except the ids specificied
+    # exclude: all checks except the ids specified
     strategy: all
     ids: []
