@@ -1,3 +1,4 @@
 - include: server.yml
 - include: drivers.yml
 - include: mysql_secure_installation.yml
+- include: schema.yml

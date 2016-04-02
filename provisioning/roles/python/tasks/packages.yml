@@ -6,6 +6,7 @@
     - tablib
     - pyyaml
     - records
+    - pymysql
     # only for tests
     - pytest
     - pytest-cov

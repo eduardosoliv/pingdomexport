@@ -5,10 +5,22 @@
 
 - name: Change root password
   command: mysql -u root -p"{{ mysql_root_temp_password.stdout }}" --connect-expired-password  -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '{{ mysql_root_password }}'"
+  become: yes
+  args:
+    creates: /root/mysql_root_password_updated
+
+- name: Create lock file change root password
+  command: touch /root/mysql_root_password_updated
+  args:
+    creates: /root/mysql_root_password_updated
+
+# - name: Define fact mysql_root_password_update
+#   set_fact:
+#     mysql_root_password_update: true
+#   when: mysql_root_password_update is not defined
 
 - name: delete anonymous MySQL server user for {{ ansible_hostname }}
   action: mysql_user login_user="root" login_password="{{ mysql_root_password }}" user="" host="{{ ansible_hostname }}" state="absent"
-
 
 - name: delete anonymous MySQL server user for localhost
   action: mysql_user login_user="root" login_password="{{ mysql_root_password }}" user="" state="absent"
