@@ -20,6 +20,6 @@ CREATE TABLE `pingdom_check_result` (
     `status_desc_long` VARCHAR(8192) NOT NULL,
     `response_time` INT(4) UNSIGNED NOT NULL,
     PRIMARY KEY (`id`),
-    KEY `check_resul_check_id_at` (`check_id`, `at`),
-    KEY `check_resul_at` (`at`)
+    KEY `check_result_check_id_at` (`check_id`, `at`),
+    KEY `check_result_at` (`at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
