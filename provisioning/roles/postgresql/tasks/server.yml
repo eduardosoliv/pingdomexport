@@ -24,6 +24,10 @@
   args:
     creates: /var/lib/pgsql/data/postgresql.conf
 
+- name: Replace postgresql.conf
+  copy: src=postgresql.conf dest=/var/lib/pgsql/data/postgresql.conf
+  become: yes
+
 - name: Start postgresql server
   service: name=postgresql state=started
   become: yes
