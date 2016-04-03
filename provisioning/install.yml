@@ -1,8 +1,9 @@
 - hosts: all
   vars:
-    mysql_root_password: KPo0_#lkP
+    database_password: KPo0_#lkP
   become_method: sudo
   roles:
     - common
     - python
     - mysql
+    - postgresql

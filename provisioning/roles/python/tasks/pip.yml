@@ -6,3 +6,11 @@
   #easy_instal: name=pip executable=3.4 state=latest
   command: easy_install-3.4 pip
   become: yes
+
+- name: Install setup tools for python 2
+  yum: name=python-setuptools
+  become: yes
+
+- name: Install pip for python 3.4
+  command: easy_install-2.7 pip
+  become: yes

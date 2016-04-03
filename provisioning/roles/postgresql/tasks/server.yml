@@ -1,0 +1,29 @@
+- name: Install postgresql server
+  yum: name=postgresql-server
+  become: yes
+
+- name: Install postgresql dev
+  yum: name=postgresql-devel
+  become: yes
+
+- name: Install python packages required by postgresql
+  command: pip2 install {{ item }}
+  become: yes
+  with_items:
+    - psycopg2
+
+- name: Install python packages required by postgresql
+  command: pip3 install {{ item }}
+  become: yes
+  with_items:
+    - psycopg2
+
+- name: Postgresql initiate db
+  command: postgresql-setup initdb
+  become: yes
+  args:
+    creates: /var/lib/pgsql/data/postgresql.conf
+
+- name: Start postgresql server
+  service: name=postgresql state=started
+  become: yes

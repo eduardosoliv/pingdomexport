@@ -1,0 +1,44 @@
+- name: Create postgres db
+  postgresql_db: name=pingdomexport
+                 encoding='UTF-8'
+                 lc_collate='de_DE.UTF-8'
+                 lc_ctype='de_DE.UTF-8'
+                 template='template0'
+  become_user: postgres
+
+- name: ensure the user has access to database
+  postgresql_user: >
+    name=root
+    password={{ database_password }}
+    state=present
+    priv=CONNECT
+    db=pingdomexport
+    login_user=postgres
+  become_user: postgres
+
+- name: ensure the user has necessary privileges
+  postgresql_user: >
+    name=root
+    role_attr_flags=LOGIN,CREATEDB
+    login_user=postgres
+  become_user: postgres
+
+- name: ensure the user has schema privileges
+  postgresql_privs: >
+    privs=ALL
+    type=schema
+    objs=public
+    role=root
+    db=pingdomexport
+    login_user=postgres
+  become_user: postgres
+
+- name: Replace pg_hba
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf
+  become: yes
+
+- name: Start postgresql server
+  service: name=postgresql state=restarted
+  become: yes
+
+# psql -h localhost -U root pingdomexport -W
