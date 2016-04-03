@@ -1,7 +1,4 @@
-- name: Create mysql database
-  mysql_db: login_user="root" login_password="{{ database_password }}" name=pingdomexport state=present
-
 - copy: src=schema.sql dest=/tmp
 
-- name: Create mysql db schema
+- name: Importing schema
   mysql_db: login_user="root" login_password="{{ database_password }}" name=pingdomexport state=import target=/tmp/schema.sql

@@ -1,0 +1,11 @@
+- name: Install python packages required by postgresql
+  command: pip2 install {{ item }}
+  become: yes
+  with_items:
+    - psycopg2
+
+- name: Install python packages required by postgresql
+  command: pip3 install {{ item }}
+  become: yes
+  with_items:
+    - psycopg2

@@ -1,0 +1,30 @@
+- name: Create root role for database
+  become_user: postgres
+  postgresql_user: db=pingdomexport user=root password="{{ database_password }}" priv=ALL state=present
+
+- name: ensure the user has necessary privileges
+  postgresql_user: >
+    name=root
+    role_attr_flags=LOGIN,CREATEDB
+    login_user=postgres
+  become_user: postgres
+
+- name: Grant usage of schema to root role
+  sudo_user: postgres
+  postgresql_privs: database=pingdomexport state=present privs=USAGE type=schema roles=root objs=public
+
+- name: Grant table permissions for root role
+  sudo_user: postgres
+  postgresql_privs: database=pingdomexport state=present privs=SELECT,INSERT,UPDATE type=table roles=root grant_option=no objs=ALL_IN_SCHEMA
+
+- name: Grant sequence permissions for root role
+  sudo_user: postgres
+  postgresql_privs: database=pingdomexport state=present privs=USAGE type=sequence roles=root grant_option=no objs=ALL_IN_SCHEMA
+
+- name: Replace pg_hba
+  copy: src=pg_hba.conf dest=/var/lib/pgsql/data/pg_hba.conf
+  become: yes
+
+- name: Start postgresql server
+  service: name=postgresql state=restarted
+  become: yes

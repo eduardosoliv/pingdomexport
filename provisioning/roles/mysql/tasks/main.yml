@@ -1,4 +1,5 @@
 - include: server.yml
 - include: drivers.yml
-- include: mysql_secure_installation.yml
+- include: start.yml
+- include: users_database.yml
 - include: schema.yml

@@ -20,3 +20,6 @@
 
 - name: remove the MySQL test database
   action: mysql_db login_user="root" login_password="{{ database_password }}" db=test state=absent
+
+- name: Create mysql database
+  mysql_db: login_user="root" login_password="{{ database_password }}" name=pingdomexport state=present
