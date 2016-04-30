@@ -1,9 +1,9 @@
 import records
 
 from pingdomexport.load import checks_mysql
-from unittest.mock import MagicMock, Mock, call
+from unittest.mock import Mock, call
 
-class TestOutput:
+class TestMySQL:
     def test_load(self):
         db = Mock()
         checks_mysql.MySQL(db).load(
@@ -40,6 +40,6 @@ class TestOutput:
 
         assert 2 == db.query.call_count
         args = db.query.call_args_list
-        arg1 = call('REPLACE INTO pingdom_check (`id`, `name`, `created_at`, `status`, `hostname`, `type`)                VALUES (:id, :name, FROM_UNIXTIME(:created_at), :status, :hostname, :type)', created_at=1458372620, type='http', hostname='www.a.com', status='up', id=2057736, name='A')
-        arg2 = call('REPLACE INTO pingdom_check (`id`, `name`, `created_at`, `status`, `hostname`, `type`)                VALUES (:id, :name, FROM_UNIXTIME(:created_at), :status, :hostname, :type)', hostname='b.a.com', created_at=1458398619, status='up', id=2057910, type='http', name='B')
+        arg1 = call('REPLACE INTO pingdom_check (`id`, `name`, `created_at`, `status`, `hostname`, `type`)                VALUES (:id, :name, FROM_UNIXTIME(:created_at), :status, :hostname, :type)', id=2057736, name='A', created_at=1458372620, status='up', hostname='www.a.com', type='http')
+        arg2 = call('REPLACE INTO pingdom_check (`id`, `name`, `created_at`, `status`, `hostname`, `type`)                VALUES (:id, :name, FROM_UNIXTIME(:created_at), :status, :hostname, :type)', id=2057910, name='B', created_at=1458398619, status='up', hostname='b.a.com', type='http')
         assert args == [arg1, arg2]
