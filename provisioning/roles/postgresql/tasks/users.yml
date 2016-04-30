@@ -15,7 +15,7 @@
 
 - name: Grant table permissions for root role
   sudo_user: postgres
-  postgresql_privs: database=pingdomexport state=present privs=SELECT,INSERT,UPDATE type=table roles=root grant_option=no objs=ALL_IN_SCHEMA
+  postgresql_privs: database=pingdomexport state=present privs=SELECT,INSERT,UPDATE,DELETE type=table roles=root grant_option=no objs=ALL_IN_SCHEMA
 
 - name: Grant sequence permissions for root role
   sudo_user: postgres
