@@ -18,8 +18,7 @@ CREATE TABLE `pingdom_check_result` (
     `status` ENUM('up', 'down', 'unconfirmed_down', 'unknown') NOT NULL,
     `status_desc` VARCHAR(1024) NOT NULL,
     `status_desc_long` VARCHAR(8192) NOT NULL,
-    `response_time` INT(4) UNSIGNED NOT NULL,
+    `response_time` INT(4) UNSIGNED DEFAULT NULL,
     PRIMARY KEY (`id`),
-    KEY `check_result_check_id_at` (`check_id`, `at`),
-    KEY `check_result_at` (`at`)
+    UNIQUE KEY `pcr_check_id_at_probe_id` (`check_id`, `at`, `probe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

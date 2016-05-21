@@ -1,3 +1,5 @@
+-- check table
+
 DROP TABLE IF EXISTS pingdom_check;
 
 DO $$
@@ -14,6 +16,8 @@ BEGIN
   END IF;
 END$$;
 
+-- INSERT INTO pingdom_check (id, name, created_at, status, hostname, type)
+-- VALUES (2057736, 'Test', to_timestamp(1458372620), 'up', 'www.google.com', 'http');
 CREATE TABLE pingdom_check (
     id INT PRIMARY KEY NOT NULL,
     name VARCHAR(8192) NOT NULL,
@@ -22,8 +26,8 @@ CREATE TABLE pingdom_check (
     hostname VARCHAR(8192) NOT NULL,
     type check_type
 );
--- INSERT INTO pingdom_check (id, name, created_at, status, hostname, type)
--- VALUES (2057736, 'Test', to_timestamp(1458372620), 'up', 'www.google.com', 'http');
+
+-- results table
 
 DROP TABLE IF EXISTS pingdom_check_result;
 
@@ -34,6 +38,8 @@ BEGIN
   END IF;
 END$$;
 
+-- INSERT INTO pingdom_check_result (check_id, at, probe_id, status, status_desc, status_desc_long, response_time)
+-- VALUES(2057736, to_timestamp(1458376174), 50, 'up', 'OK', 'OK', 582);
 CREATE TABLE pingdom_check_result (
     id SERIAL PRIMARY KEY,
     check_id INT NOT NULL,
@@ -42,11 +48,8 @@ CREATE TABLE pingdom_check_result (
     status check_results_status,
     status_desc VARCHAR(1024) NOT NULL,
     status_desc_long VARCHAR(8192) NOT NULL,
-    response_time INT NOT NULL
+    response_time INT NOT NULL,
+    CONSTRAINT pcr_check_id_at_probe_id UNIQUE (check_id, at, probe_id)
 );
 
-CREATE INDEX check_result_check_id_at ON pingdom_check_result (check_id, at);
-CREATE INDEX check_result_at ON pingdom_check_result (at);
-
--- INSERT INTO pingdom_check_result (check_id, at, probe_id, status, status_desc, status_desc_long, response_time)
--- VALUES(2057736, to_timestamp(1458376174), 50, 'up', 'OK', 'OK', 582);
+-- CREATE UNIQUE INDEX pcr_check_id_at_probe_id ON pingdom_check_result (check_id, at, probe_id);
