@@ -136,7 +136,7 @@ class TestLoad:
         created = 1458372620
         pingdom = Mock()
         pingdom.check_results = MagicMock(return_value={"results": []})
-        checks_results_load.Load("config", pingdom).results(
+        checks_results_load.Load(config, pingdom).results(
             {
                 "id": 2057736,
                 "created": created
