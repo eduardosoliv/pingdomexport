@@ -53,6 +53,30 @@ class Checks:
     def ids(self):
         return self.__ids
 
+class Load:
+    def __init__(self, type, params):
+        if type not in ['output', 'mysql', 'postgres']:
+            raise ValueError("Load configuration type must be output/mysql/postgres")
+        if type == 'output' and params:
+            raise ValueError("On load configuration type output parameters are not expected")
+        if type in ['mysql', 'postgres'] and 'db_url' not in params:
+            raise ValueError("On load configuration type mysql/postgres db_url parameter is expected")
+        self.__type = type
+        self.__params = params
+
+    def type(self):
+        return self.__type
+
+    def params(self):
+        return self.__params
+
+    def isTypeOutput(self):
+        return self.type() == 'output'
+    def isTypeMySQL(self):
+        return self.type() == 'mysql'
+    def isTypePostgres(self):
+        return self.type() == 'postgres'
+
 class Configuration:
     def __init__(self, config_path=None):
         if config_path is None:

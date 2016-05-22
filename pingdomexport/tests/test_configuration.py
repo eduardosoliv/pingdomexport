@@ -61,3 +61,38 @@ class TestChecks:
         assert checks.is_strategy_exclude()
         checks = configuration.Checks('all', [])
         assert not checks.is_strategy_exclude()
+
+class TestLoad:
+    def test_type_unrecognized(self):
+        with pytest.raises(ValueError):
+            configuration.Load('t', {})
+    def test_output_with_parameters(self):
+        with pytest.raises(ValueError):
+            configuration.Load('output', {'db_url': 'test'})
+    def test_mysql_without_db_url(self):
+        with pytest.raises(ValueError):
+            configuration.Load('mysql', {})
+    def test_postgres_without_db_url(self):
+        with pytest.raises(ValueError):
+            configuration.Load('postgres', {})
+    def test_output(self):
+        load = configuration.Load('output', {})
+        assert load.type() == 'output'
+        assert load.params() == {}
+        assert load.isTypeOutput()
+        assert not load.isTypeMySQL()
+        assert not load.isTypePostgres()
+    def test_mysql(self):
+        load = configuration.Load('mysql', {'db_url': 'test'})
+        assert load.type() == 'mysql'
+        assert load.params() == {'db_url': 'test'}
+        assert not load.isTypeOutput()
+        assert load.isTypeMySQL()
+        assert not load.isTypePostgres()
+    def test_postgres(self):
+        load = configuration.Load('postgres', {'db_url': 'test'})
+        assert load.type() == 'postgres'
+        assert load.params() == {'db_url': 'test'}
+        assert not load.isTypeOutput()
+        assert not load.isTypeMySQL()
+        assert load.isTypePostgres()
