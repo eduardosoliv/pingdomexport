@@ -1,5 +1,4 @@
 import records
-
 from pingdomexport.load import checks_postgres
 from unittest.mock import Mock, call
 
@@ -7,8 +6,8 @@ class TestPostgres:
     def test_load_new(self):
         db = Mock()
         query = Mock()
-        query.all = Mock(return_value=[])
-        db.query = Mock(return_value=query)
+        query.all.return_value = []
+        db.query.return_value = query
         checks_postgres.Postgres(db).load(
             [
                 {
@@ -52,8 +51,8 @@ class TestPostgres:
     def test_load_existent(self):
         db = Mock()
         query = Mock()
-        query.all = Mock(return_value=[2057736])
-        db.query = Mock(return_value=query)
+        query.all.return_value = [records.Record(['id'], [2057736])]
+        db.query.return_value = query
         checks_postgres.Postgres(db).load(
             [
                 {
