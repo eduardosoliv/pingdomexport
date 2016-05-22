@@ -96,3 +96,24 @@ class TestLoad:
         assert not load.isTypeOutput()
         assert not load.isTypeMySQL()
         assert load.isTypePostgres()
+    def test_output_from_dict(self):
+        load = configuration.Load.from_dict({'type': 'output', 'parameters': {}})
+        assert load.type() == 'output'
+        assert load.params() == {}
+        assert load.isTypeOutput()
+        assert not load.isTypeMySQL()
+        assert not load.isTypePostgres()
+    def test_mysql_from_dict(self):
+        load = configuration.Load.from_dict({'type': 'mysql', 'parameters': {'db_url': 'test'}})
+        assert load.type() == 'mysql'
+        assert load.params() == {'db_url': 'test'}
+        assert not load.isTypeOutput()
+        assert load.isTypeMySQL()
+        assert not load.isTypePostgres()
+    def test_postgres_from_dict(self):
+        load = configuration.Load.from_dict({'type': 'postgres', 'parameters': {'db_url': 'test'}})
+        assert load.type() == 'postgres'
+        assert load.params() == {'db_url': 'test'}
+        assert not load.isTypeOutput()
+        assert not load.isTypeMySQL()
+        assert load.isTypePostgres()

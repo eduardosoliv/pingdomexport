@@ -64,6 +64,13 @@ class Load:
         self.__type = type
         self.__params = params
 
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data['type'],
+            data['parameters']
+        )
+
     def type(self):
         return self.__type
 
