@@ -2,10 +2,10 @@ from pingdomexport.load import check_results_mysql
 
 from unittest.mock import Mock, call
 
-class TestOutput:
+class TestMySQL:
     def test_load(self, capsys):
         db = Mock()
-        check_results_mysql.Output(db).load(
+        check_results_mysql.MySQL(db).load(
             2057736,
             [
                 {
