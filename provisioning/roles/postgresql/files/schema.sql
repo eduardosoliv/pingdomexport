@@ -48,7 +48,7 @@ CREATE TABLE pingdom_check_result (
     status check_results_status,
     status_desc VARCHAR(1024) NOT NULL,
     status_desc_long VARCHAR(8192) NOT NULL,
-    response_time INT NOT NULL,
+    response_time INT DEFAULT NULL,
     CONSTRAINT pcr_check_id_at_probe_id UNIQUE (check_id, at, probe_id)
 );
 
