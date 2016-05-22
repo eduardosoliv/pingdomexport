@@ -1,4 +1,4 @@
-from unittest.mock import MagicMock, Mock
+from unittest.mock import MagicMock, Mock, call
 from pingdomexport.load import checks_results_load
 from pingdomexport import configuration
 
@@ -197,3 +197,157 @@ class TestLoad:
         assert len(out) == 2
         assert '2057736,1458376174,50,up,OK,OK,582\r\n2057736,1458376184,51,up,OK,OK,682\r\n2057736,1458376114,34,up,OK,OK,1420\r\n' == out[0]
         assert '' == out[1]
+
+    def test_mysql_load(self):
+        config = Mock()
+        db = Mock()
+        config.is_type_db.return_value = True
+        config.is_type_mysql.return_value = True
+        config.db_connection.return_value = db
+
+        pingdom = Mock()
+        pingdom.check_results.side_effect = [
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376174
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376175
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376176
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376177
+                    }
+                ]
+            }
+        ]
+        checks_results_load.Load(config, pingdom).load(
+            [
+                {
+                    "id": 2057736,
+                    "created": 1458372620
+                },
+                {
+                    "id": 2057737,
+                    "created": 1458372620
+                }
+            ],
+            c_to=1458372620 + 3600 * 2
+        )
+
+        assert 4 == db.query.call_count
+
+    def test_posgres_load(self):
+        config = Mock()
+
+        db = Mock()
+        query = Mock()
+        query.all.return_value = []
+        db.query.return_value = query
+
+        config.is_type_db.return_value = True
+        config.is_type_mysql.return_value = False
+        config.is_type_postgres.return_value = True
+        config.db_connection.return_value = db
+
+        pingdom = Mock()
+        pingdom.check_results.side_effect = [
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376174
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376175
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376176
+                    }
+                ]
+            },
+            {
+                "results": [
+                    {
+                        'statusdesclong': 'OK',
+                        'responsetime': 582,
+                        'probeid': 50,
+                        'status': 'up',
+                        'statusdesc': 'OK',
+                        'time': 1458376177
+                    }
+                ]
+            }
+        ]
+        checks_results_load.Load(config, pingdom).load(
+            [
+                {
+                    "id": 2057736,
+                    "created": 1458372620
+                },
+                {
+                    "id": 2057737,
+                    "created": 1458372620
+                }
+            ],
+            c_to=1458372620 + 3600 * 2
+        )
+
+        assert 8 == db.query.call_count

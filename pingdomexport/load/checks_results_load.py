@@ -1,13 +1,18 @@
 import time
-from pingdomexport.load import check_results_output
+from pingdomexport.load import check_results_output, check_results_mysql, check_results_postgres
 from pingdomexport import utils
 
 class Load:
     def __init__(self, config, pingdom):
         self.__pingdom = pingdom
         self.__config = config
-        # @todo use config to understand what to call
         self.__output = check_results_output.Output()
+        if config.is_type_db():
+            db_connection = config.db_connection();
+            if config.is_type_mysql():
+                self.__output = check_results_mysql.MySQL(db_connection)
+            else:
+                self.__output = check_results_postgres.Postgres(db_connection)
 
     def load(self, checks, c_from=None, c_to=None):
         self.__output.pre_load()
