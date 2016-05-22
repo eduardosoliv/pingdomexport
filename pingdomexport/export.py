@@ -16,9 +16,9 @@ class Export:
     def run(self):
         filtered_checks = checks.Picker(self.__config.checks(), self.__pingdom.checks()).filter()
         if self.__export_type in ['all', 'checks']:
-            checks_load.Load(self.__config).load(filtered_checks)
+            checks_load.Load(self.__config.load()).load(filtered_checks)
         if self.__export_type in ['all', 'results']:
-            checks_results_load.Load(self.__config, self.__pingdom).load(
+            checks_results_load.Load(self.__config.load(), self.__pingdom).load(
                 filtered_checks,
                 self.__checks_from,
                 self.__checks_to

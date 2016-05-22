@@ -79,41 +79,35 @@ class TestLoad:
         load = configuration.Load('output', {})
         assert load.type() == 'output'
         assert load.params() == {}
-        assert load.isTypeOutput()
-        assert not load.isTypeMySQL()
-        assert not load.isTypePostgres()
+        assert load.is_type_output()
+        assert not load.is_type_mysql()
+        assert not load.is_type_postgres()
+        assert not load.is_type_db();
     def test_mysql(self):
         load = configuration.Load('mysql', {'db_url': 'test'})
         assert load.type() == 'mysql'
         assert load.params() == {'db_url': 'test'}
-        assert not load.isTypeOutput()
-        assert load.isTypeMySQL()
-        assert not load.isTypePostgres()
+        assert not load.is_type_output()
+        assert load.is_type_mysql()
+        assert not load.is_type_postgres()
+        assert load.is_type_db();
     def test_postgres(self):
         load = configuration.Load('postgres', {'db_url': 'test'})
         assert load.type() == 'postgres'
         assert load.params() == {'db_url': 'test'}
-        assert not load.isTypeOutput()
-        assert not load.isTypeMySQL()
-        assert load.isTypePostgres()
+        assert not load.is_type_output()
+        assert not load.is_type_mysql()
+        assert load.is_type_postgres()
+        assert load.is_type_db();
     def test_output_from_dict(self):
         load = configuration.Load.from_dict({'type': 'output', 'parameters': {}})
         assert load.type() == 'output'
         assert load.params() == {}
-        assert load.isTypeOutput()
-        assert not load.isTypeMySQL()
-        assert not load.isTypePostgres()
     def test_mysql_from_dict(self):
         load = configuration.Load.from_dict({'type': 'mysql', 'parameters': {'db_url': 'test'}})
         assert load.type() == 'mysql'
         assert load.params() == {'db_url': 'test'}
-        assert not load.isTypeOutput()
-        assert load.isTypeMySQL()
-        assert not load.isTypePostgres()
     def test_postgres_from_dict(self):
         load = configuration.Load.from_dict({'type': 'postgres', 'parameters': {'db_url': 'test'}})
         assert load.type() == 'postgres'
         assert load.params() == {'db_url': 'test'}
-        assert not load.isTypeOutput()
-        assert not load.isTypeMySQL()
-        assert load.isTypePostgres()

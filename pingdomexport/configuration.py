@@ -1,5 +1,6 @@
 import os.path
 import yaml
+import records
 
 class PingdomAccess:
     def __init__(self, username, password, account_email, app_key):
@@ -77,12 +78,20 @@ class Load:
     def params(self):
         return self.__params
 
-    def isTypeOutput(self):
+    def is_type_output(self):
         return self.type() == 'output'
-    def isTypeMySQL(self):
+    def is_type_mysql(self):
         return self.type() == 'mysql'
-    def isTypePostgres(self):
+    def is_type_postgres(self):
         return self.type() == 'postgres'
+    def is_type_db(self):
+        return not self.is_type_output()
+
+    def db_connection(self):
+        db_connection = None
+        if (self.is_type_db):
+            db_connection = records.Database(self.params()['db_url'])
+        return db_connection
 
 class Configuration:
     def __init__(self, config_path=None):
@@ -97,9 +106,13 @@ class Configuration:
 
         self.__pingdom_access = PingdomAccess.from_dict(config['pingdom_access'])
         self.__checks = Checks.from_dict(config['checks'])
+        self.__load = Load.from_dict(config['load'])
 
     def pingdom_access(self):
         return self.__pingdom_access
 
     def checks(self):
         return self.__checks
+
+    def load(self):
+        return self.__load
