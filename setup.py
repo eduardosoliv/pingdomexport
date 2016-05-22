@@ -23,12 +23,13 @@ setup(
     name='pingdomexport',
     version='0.1',
     url='https://github.com/entering/pingdomexport',
-    description='Export your pingom data',
+    description='Export your pingom data to CSV or database',
     long_description=read_description('README.rst'),
     author='Eduardo Oliveira',
     author_email='me@eduardooliveira.net',
     license='MIT',
-    packages=['pingdomexport'],
+    keywords='pingdom export mysql postgres',
+    packages=['pingdomexport', 'pingdomexport.load'],
     entry_points="""
         [console_scripts]
         pingdomexport=pingdomexport.cli:cli
