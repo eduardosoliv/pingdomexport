@@ -14,12 +14,12 @@ checks:
     ids: []
 
 load:
-  # type: output|mysql|postgres
-  type: output
-  parameters: []
-  # if mysql
-  #parameters:
-  #  db_url: mysql+pymysql://user:password@host/database
-  # if postgres
-  #parameters:
-  #  db_url: postgres://user:password@host/database
+    # type: output|mysql|postgres
+    type: output
+    parameters: []
+    # if mysql
+    #parameters:
+    #  db_url: mysql+pymysql://user:password@host/database
+    # if postgres
+    #parameters:
+    #  db_url: postgres://user:password@host/database
