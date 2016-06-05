@@ -18,13 +18,13 @@ To install simply
 
     $ pip install pingdomexport
 
-Configure
-------------
+Configuration
+-------------
 
 Check the `configuration file <https://github.com/entering/pingdomexport/blob/master/config.yml.dist>`_.
 
-Place the configuration file in any place that seems fit and make sure the user you will use to run pingdom export
-has access to it.
+Place the configuration file in any place that seems fit to you. Make sure the user you will use to run pingdom export
+has read access to the configuration file.
 
 Configuration access
 --------------------
@@ -37,9 +37,9 @@ Configuration access
         account_email: dummy
         app_key: dummy
 
-The username, password and account email should be easy to fill is your credentials to log in in pindgom.
+The username, password and account email should be easy to fill in (is your credentials to log in in pindgom).
 
-The api key you need to create an application. Log in in pingdom then Integrations > The Pingdom API > Register Application
+To get your app key, log in on pingdom then go to Integrations > The Pingdom API > Register Application
 
 Configuration checks
 --------------------
@@ -126,16 +126,26 @@ If posgres:
 Database schema
 ---------------
 
+If you are going to export for database then you need to create the schema upfront:
+
 -  `MySQL <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/mysql/files/schema.sql>`_
 -  `Postgres <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`_
 
+Database privileges
+-------------------
+
+Both MySQL and Postgres requires a user with SELECT,INSERT,UPDATE,DELETE permissions to the DB. In case of Postgres the user also requires access to sequences.
 
 Run
 ------------
 
-Run pingdom-run-export --help for help
+To list the options available:
 
-Export only check information:
+.. code-block:: bash
+
+    pingdom-run-export --help
+
+Export only checks information:
 
 .. code-block:: bash
 
@@ -156,7 +166,7 @@ Export checks information & results:
 Run - partial export
 --------------------
 
-By default the pingdom export will always export the full results. But will also allow to specify a range, eg:
+By default the pingdom export will always export the full results. There is optional arguments to allow to specify a time range, eg:
 
 .. code-block:: bash
 
@@ -165,7 +175,7 @@ By default the pingdom export will always export the full results. But will also
 Big data
 --------------------
 
-In case you have multiple checks with months of history, running everything in a single thread will take too much time.
+In case you have multiple checks with months of history, running everything in a single thread will probably take too much time.
 
 You can use multiple configuration files and run one pingdom export per check. Then just have a crontab running daily and
 use the checks-from and checks-to.
