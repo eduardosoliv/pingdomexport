@@ -1,5 +1,5 @@
-Pingdom Export
-===========
+Pingdom Export: Export your pingdom data
+========================================
 
 |Build| |Coverage|
 
