@@ -126,8 +126,8 @@ If posgres:
 Database schema
 ---------------
 
--  `MySQL <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/mysql/files/schema.sql>`
--  `Postgres >https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`
+-  `MySQL <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/mysql/files/schema.sql>`_
+-  `Postgres >https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`_
 
 
 Run
