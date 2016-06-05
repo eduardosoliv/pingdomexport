@@ -127,10 +127,45 @@ Database schema
 ---------------
 
 -  `MySQL <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/mysql/files/schema.sql>`_
--  `Postgres >https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`_
+-  `Postgres <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`_
 
 
 Run
 ------------
 
 Run pingdom-run-export --help for help
+
+Export only check information:
+
+.. code-block:: bash
+
+    $ pingdom-run-export --config /full/path/to/config.yml --type checks
+
+Export only checks results:
+
+.. code-block:: bash
+
+    $ pingdom-run-export --config /full/path/to/config.yml --type results
+
+Export checks information & results:
+
+.. code-block:: bash
+
+    $ pingdom-run-export --config /full/path/to/config.yml --type all
+
+Run - partial export
+--------------------
+
+By default the pingdom export will always export the full results. But will also allow to specify a range, eg:
+
+.. code-block:: bash
+
+    $ pingdom-run-export --config /full/path/to/config.yml --type results --checks-from 1465071758 --checks-to 1465158158
+
+Big data
+--------------------
+
+In case you have multiple checks with months of history, running everything in a single thread will take too much time.
+
+You can use multiple configuration files and run one pingdom export per check. Then just have a crontab running daily and
+use the checks-from and checks-to.
