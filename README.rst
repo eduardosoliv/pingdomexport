@@ -23,7 +23,7 @@ Configure
 
 Check the configuration file |Configuration|
 
-.. |Configuration|: https://github.com/entering/pingdomexport/blob/master/config.yml.dist
+.. |Configuration| :target: https://github.com/entering/pingdomexport/blob/master/config.yml.dist
 
 Place the configuration file in any place that seems fit and make sure the user you will use to run pingdom export
 has access to it.
