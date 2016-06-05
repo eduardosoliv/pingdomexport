@@ -21,7 +21,7 @@ To install simply
 Configure
 ------------
 
-Check the `configuration file <https://github.com/entering/pingdomexport/blob/master/config.yml.dist>`.
+Check the `configuration file <https://github.com/entering/pingdomexport/blob/master/config.yml.dist>`_.
 
 Place the configuration file in any place that seems fit and make sure the user you will use to run pingdom export
 has access to it.
