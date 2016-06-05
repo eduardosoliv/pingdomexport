@@ -21,7 +21,7 @@ To install simply
 Configure
 ------------
 
-Check the configuration file |Configuration|
+Check the configuration file |_Configuration|
 
 .. _Configuration: https://github.com/entering/pingdomexport/blob/master/config.yml.dist
 
