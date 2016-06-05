@@ -143,7 +143,7 @@ To list the options available:
 
 .. code-block:: bash
 
-    pingdom-run-export --help
+    $ pingdom-run-export --help
 
 Export only checks information:
 
