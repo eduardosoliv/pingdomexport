@@ -1,9 +1,13 @@
+#!/usr/bin/env python3
+
 import json
 import requests
 import argparse
 import sys
 import yaml
+import re
 from pingdomexport import export
+from pingdomexport import __version__
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -23,6 +27,12 @@ parser.add_argument(
     "--checks-to",
     type=int,
     help="Will returns checks results up to the timestamp passed"
+)
+parser.add_argument(
+    '--version',
+    action='version',
+    help='Shows pingdomexport version',
+    version='%(prog)s ' + __version__
 )
 
 args = parser.parse_args()

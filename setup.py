@@ -1,11 +1,11 @@
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
-
+from setuptools import setup
 import codecs
 import os
 import re
+
+def get_version():
+    with open('pingdomexport/__init__.py', 'r') as fd:
+        return re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
 
 def read_description(filename):
     with codecs.open(filename, encoding='utf-8') as f:
@@ -21,7 +21,7 @@ def read_requirements(filename):
 
 setup(
     name='pingdomexport',
-    version='0.1',
+    version=get_version(),
     url='https://github.com/entering/pingdomexport',
     description='Export your pingom data to CSV or database',
     long_description=read_description('README.rst'),
@@ -30,10 +30,7 @@ setup(
     license='MIT',
     keywords='pingdom export mysql postgres',
     packages=['pingdomexport', 'pingdomexport.load'],
-    entry_points="""
-        [console_scripts]
-        pingdomexport=pingdomexport.cli:cli
-    """,
+    scripts=['pingdom-run-export'],
     install_requires=read_requirements('requirements.txt'),
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -41,7 +38,6 @@ setup(
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
         'License :: OSI Approved :: MIT License',
-        'Topic :: Monitoring',
         'Topic :: Utilities',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
