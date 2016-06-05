@@ -79,6 +79,57 @@ Specify the checks to exclude (will export every check except the ones specified
         strategy: exclude
         ids: [12454]
 
+Configuration export
+--------------------
+
+Pingdom export allows to export the checks and results to mysql, postgres or the stdout.
+
+.. code-block:: yaml
+
+  load:
+      # type: output|mysql|postgres
+      type: output
+      parameters: []
+      # if mysql
+      #parameters:
+      #  db_url: mysql+pymysql://user:password@host/database
+      # if postgres
+      #parameters:
+      #  db_url: postgres://user:password@host/database
+
+If output:
+
+.. code-block:: yaml
+
+  load:
+      type: output
+      parameters: []
+
+If mysql:
+
+.. code-block:: yaml
+
+  load:
+      type: mysql
+      parameters:
+          db_url: mysql+pymysql://user:password@host/database
+
+If posgres:
+
+.. code-block:: yaml
+
+  load:
+      type: postgres
+      parameters:
+          db_url: mysql+pymysql://user:password@host/database
+
+Database schema
+---------------
+
+-  `MySQL <https://github.com/entering/pingdomexport/blob/master/provisioning/roles/mysql/files/schema.sql>`
+-  `Postgres >https://github.com/entering/pingdomexport/blob/master/provisioning/roles/postgresql/files/schema.sql>`
+
+
 Run
 ------------
 
